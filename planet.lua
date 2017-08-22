@@ -24,12 +24,9 @@ function Planet:update(dt)
 	self.x, self.y = self.body:getX(), self.body:getY()
 	for _, ent in pairs(Game.entities) do
 		if ent.body ~= nil and ent.body:getType() ~= "static" then
-			local x, y = ent.body:getX(), ent.body:getY()
-			local deltaX, deltaY = self.x - x, self.y - y
-			local distance = math.sqrt(deltaX * deltaX + deltaY * deltaY)
-			local dirX, dirY = deltaX / distance, deltaY / distance
-			local force = ent.body:getMass() * self.gravity * (self.radius / distance) * (self.radius / distance)
-			ent.body:applyForce(dirX * force, dirY * force)
+			local forceX, forceY = self:getGravityForceAtPoint(ent.body:getX(), ent.body:getY())
+			local mass = ent.body:getMass()
+			ent.body:applyForce(forceX * mass, forceY * mass)
 		end
 	end
 
@@ -42,6 +39,28 @@ function Planet:draw()
 	love.graphics.setColor(0, 255, 0)
 	love.graphics.circle("line", self.x, self.y, radius)
 	love.graphics.pop()
+
+	-- DEBUG
+	love.graphics.setColor(255, 0, 0)
+	for _, ent in pairs(Game.entities) do
+		if ent.body ~= nil and ent.body:getType() ~= "static" then
+			local x, y = ent.body:getX(), ent.body:getY()
+			local forceX, forceY = self:getGravityForceAtPoint(x, y)
+			local mass = ent.body:getMass()
+			ent.body:applyForce(forceX, forceY)
+			love.graphics.line(x, y, x + forceX, y + forceY)
+		end
+	end
+
+end
+
+function Planet:getGravityForceAtPoint(x, y)
+
+	local deltaX, deltaY = self.x - x, self.y - y
+	local distance = math.sqrt(deltaX * deltaX + deltaY * deltaY)
+	local dirX, dirY = deltaX / distance, deltaY / distance
+	local force = self.gravity * (self.radius / distance) * (self.radius / distance)
+	return dirX * force, dirY * force
 
 end
 

@@ -14,18 +14,19 @@ function Game:init()
 	self.planets = {}
 	
 	self:addPlanet(Planet:new(0, 0, 200, 9.81, self.world))
-	self:addEntity(Character:new(0, -130, self.world))
+	self:addPlanet(Planet:new(0, -4000, 200, 981, self.world))
+
+	self:addEntity(Character:new(0, -300, self.world))
 	self:addEntity(Character:new(50, -130, self.world))
 	self:addEntity(Character:new(-50, -130, self.world))
 	self:addEntity(Character:new(0, 130, self.world))
 	self:addEntity(Character:new(50, 130, self.world))
 	self:addEntity(Character:new(-50, 130, self.world))
-
 	self:addEntity(Character:new(-130, 0, self.world))
 	self:addEntity(Character:new(-130, 50, self.world))
 	self:addEntity(Character:new(130, -50, self.world))
 
-	self.camera = Camera:new(0, 0)
+	self.camera = Camera:new(0, -50)
 end
 
 function Game:update(dt)

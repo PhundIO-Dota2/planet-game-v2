@@ -7,7 +7,8 @@ function Camera:new(x, y)
 	setmetatable(camera, Camera)
 	camera.x = x
 	camera.y = y
-	camera.scale = 1
+	camera.scale = 0.5
+	love.graphics.setLineWidth(1 / camera.scale)
 	return camera
 
 end
