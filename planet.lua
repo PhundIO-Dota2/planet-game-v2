@@ -59,4 +59,16 @@ function Planet:getGravityForceAtPoint(x, y)
 
 end
 
+function Planet:position()
+
+	return self.body:getX(), self.body:getY()
+
+end
+
+function Planet:angle()
+
+	return self.body:getAngle()
+
+end
+
 return Planet

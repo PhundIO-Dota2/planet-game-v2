@@ -1,6 +1,7 @@
 require "camera"
 require "character"
 require "planet"
+require "rocket"
 
 Game = {}
 
@@ -14,13 +15,16 @@ function Game:init()
 	self.planets = {}
 	
 	self:addPlanet(Planet:new(0, 3200, 3200, 9.81, self.world))
-	self:addPlanet(Planet:new(0, -4000, 2000, 9.81, self.world))
+	-- self:addPlanet(Planet:new(0, -4000, 2000, 9.81, self.world))
 
-	self.localPlayer = Character:new(0, -100, self.world)
-	self:addEntity(self.localPlayer)
-	-- self:addEntity(Character:new(0, -130, self.world))
+	self.localPlayer = Character:new(100, -100, self.world)
+	-- self:addEntity(self.localPlayer)
+	local rocket = Rocket:new(0, -100, self.world)
+	self:addEntity(rocket)
+	rocket:setDriver(self.localPlayer)
 
 	self.camera = Camera:new(0, -50)
+	self.camera:setTarget(rocket)
 end
 
 function Game:update(dt)

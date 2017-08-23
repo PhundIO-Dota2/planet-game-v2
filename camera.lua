@@ -20,12 +20,23 @@ function Camera:push()
 	local h = love.graphics.getHeight()
 	love.graphics.translate(w * 0.5 - self.x, h * 0.5 - self.y)
 	love.graphics.scale(self.scale)
+	if self.target then
+		local x, y = self.target:position()
+		love.graphics.rotate(-self.target:angle())
+		love.graphics.translate(-x, -y)
+	end
 
 end
 
 function Camera:pop()
 
 	love.graphics.pop()
+
+end
+
+function Camera:setTarget(target)
+
+	self.target = target
 
 end
 
