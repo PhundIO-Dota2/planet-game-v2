@@ -7,7 +7,7 @@ function Camera:new(x, y)
 	setmetatable(camera, Camera)
 	camera.x = x
 	camera.y = y
-	camera.scale = 0.5
+	camera.scale = 1
 	love.graphics.setLineWidth(1 / camera.scale)
 	return camera
 
@@ -16,6 +16,7 @@ end
 function Camera:push()
 
 	love.graphics.push()
+	love.graphics.setLineWidth(1 / self.scale)
 	local w = love.graphics.getWidth()
 	local h = love.graphics.getHeight()
 	love.graphics.translate(w * 0.5 - self.x, h * 0.5 - self.y)
@@ -37,6 +38,12 @@ end
 function Camera:setTarget(target)
 
 	self.target = target
+
+end
+
+function Camera:setScale(scale)
+
+	self.scale = scale
 
 end
 

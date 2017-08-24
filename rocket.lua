@@ -64,6 +64,13 @@ function Rocket:draw()
 	love.graphics.polygon("line", self.shape:getPoints())
 	love.graphics.pop()
 
+	-- Trajectory
+	function findProjectileTrajectory(ri, vi, g, t)
+		local rfx = ri[1] + vi[1]*t + (g[1] * t^2)/2
+		local rfy = ri[2] + vi[2]*t + (g[2] * t^2)/2
+		return rfx, rfy
+	end
+
 	-- DEBUG
 	local angle = self.body:getAngle()
 	local upX, upY = math.sin(angle), -math.cos(angle)
