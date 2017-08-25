@@ -82,7 +82,7 @@ function Rocket:drawTrajectory(maxDistance)
 	-- TRAJECTORY
 	local hit = false
 	local distance = 0
-	local step = 6/60
+	local step = 1/60
 	local i = 0
 	local x, y = self.body:getPosition()
 	local vX, vY = self.body:getLinearVelocity()

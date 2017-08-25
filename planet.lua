@@ -22,7 +22,8 @@ function Planet:update(dt)
 		if ent.body ~= nil and ent.body:getType() ~= "static" then
 			local forceX, forceY = self:getGravityForceAtPoint(ent.body:getX(), ent.body:getY())
 			local mass = ent.body:getMass()
-			ent.body:applyForce(forceX * mass, forceY * mass)
+			local rate = 1 -- dt * 60
+			ent.body:applyForce(forceX * mass * rate, forceY * mass * rate)
 		end
 	end
 
