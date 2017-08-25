@@ -42,7 +42,6 @@ function Planet:draw()
 			local x, y = ent.body:getX(), ent.body:getY()
 			local forceX, forceY = self:getGravityForceAtPoint(x, y)
 			local mass = ent.body:getMass()
-			ent.body:applyForce(forceX, forceY)
 			love.graphics.line(x, y, x + forceX, y + forceY)
 		end
 	end
