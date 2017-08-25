@@ -10,7 +10,7 @@ function Rocket:new(x, y, world)
 	rocket.shape = love.physics.newRectangleShape(64, 128)
 	rocket.fixture = love.physics.newFixture(rocket.body, rocket.shape, 1)
 	rocket.fixture:setFriction(1)
-	rocket.body:setMass(10)
+	rocket.body:setMass(1000)
 
 	return rocket
 
@@ -29,7 +29,7 @@ function Rocket:handleMovement()
 	local rightX, rightY = -upY, upX
 	if love.keyboard.isScancodeDown("w") then
 		local worldX, worldY = self.body:getWorldPoint(0, 64)
-		local force = 120 * love.physics.getMeter()
+		local force = 12000 * love.physics.getMeter()
 		self.body:applyForce(upX * force, upY * force, worldX, worldY)
 	end
 	local lateralForce = 10 * love.physics.getMeter()
@@ -77,19 +77,20 @@ function Rocket:draw()
 
 end
 
-function Rocket:drawTrajectory(distance)
+function Rocket:drawTrajectory(maxDistance)
 
 	-- TRAJECTORY
+	local hit = false
+	local distance = 0
 	local step = 6/60
 	local i = 0
 	local x, y = self.body:getPosition()
 	local vX, vY = self.body:getLinearVelocity()
 	local points = {x, y}
-	local hit = false
-	while distance > 0 and not hit do
+	while distance < maxDistance and not hit do
 		x, y = x + vX * step, y + vY * step
 		segmentLength = math.sqrt(vX * step * vX * step + vY * step * vY * step)
-		distance = distance - segmentLength
+		distance = distance + segmentLength
 		for _, planet in pairs(Game.planets) do
 			local gX, gY = planet:getGravityForceAtPoint(x, y)
 			vX, vY = vX + gX * step, vY + gY * step

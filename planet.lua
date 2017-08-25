@@ -30,11 +30,6 @@ end
 
 function Planet:draw()
 
-	love.graphics.push()
-	love.graphics.setColor(0, 255, 0)
-	love.graphics.circle("line", self.body:getX(), self.body:getY(), self.shape:getRadius())
-	love.graphics.pop()
-
 	-- DEBUG
 	love.graphics.setColor(255, 0, 0)
 	for _, ent in pairs(Game.entities) do
@@ -45,6 +40,12 @@ function Planet:draw()
 			love.graphics.line(x, y, x + forceX, y + forceY)
 		end
 	end
+
+	-- PLANET
+	love.graphics.push()
+	love.graphics.setColor(0, 255, 0)
+	love.graphics.circle("line", self.body:getX(), self.body:getY(), self.shape:getRadius())
+	love.graphics.pop()
 
 end
 

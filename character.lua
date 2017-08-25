@@ -12,7 +12,7 @@ function Character:new(x, y, world)
 	character.fixture = love.physics.newFixture(character.body, character.shape, 1)
 	character.fixture:setFriction(1)
 	character.fixture:setGroupIndex(-1)
-	character.body:setMass(8)
+	character.body:setMass(10)
 	character.body:setFixedRotation(true)
 
 	character.feetShape = love.physics.newRectangleShape(0, 32, 24, 6, 0)
@@ -27,8 +27,8 @@ end
 function Character:update(dt)
 
 	self:updateMovementOrigin()
-	self:handleMovement()
 	self:keepUpRight()
+	self:handleMovement()
 
 end
 

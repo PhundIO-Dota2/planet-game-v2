@@ -14,13 +14,13 @@ function Game:init()
 	self.entities = {}
 	self.planets = {}
 	
-	self:addPlanet(Planet:new(0, 0, 3000, 10, self.world))
-	self:addPlanet(Planet:new(0, -20000, 1000, 3, self.world))
+	self:addPlanet(Planet:new(0, 0, 3200, 10, self.world))
+	-- self:addPlanet(Planet:new(0, -20000, 1000, 3, self.world))
 
-	self.localPlayer = Character:new(100, -100, self.world)
-	-- self:addEntity(self.localPlayer)
-	local rocket = Rocket:new(-2500, -2500, self.world)
-	rocket.body:setLinearVelocity(-650, 650)
+	self.localPlayer = Character:new(100, -1600, self.world)
+	self:addEntity(self.localPlayer)
+	local rocket = Rocket:new(0, -1600, self.world)
+	-- rocket.body:setLinearVelocity(-650, 650)
 	self:addEntity(rocket)
 	rocket:setDriver(self.localPlayer)
 
@@ -28,7 +28,7 @@ function Game:init()
 	self.camera:setTarget(rocket)
 	self.zoomOutCam = Camera:new(0, 0)
 	self.zoomOutCam:setScale(0.025)
-	self.activeCamera = self.zoomOutCam
+	self.activeCamera = self.camera
 end
 
 function Game:update(dt)
